@@ -7,6 +7,8 @@ import re as Regx
 import urllib2
 import urllib
 
+import zipfile
+
 # class
 class Test:
       @staticmethod
@@ -66,6 +68,19 @@ class Test:
           f = urllib2.urlopen(req)
           content = f.read()
           print "net ",content
+
+
+#         zip
+          if not os.path.exists("tmp"):
+              os.makedirs(path)
+          f = zipfile.ZipFile("tmp/target.zip", 'w', zipfile.ZIP_DEFLATED)
+          f.write("test.sh")
+          f.close()
+
+          f = zipfile.ZipFile("tmp/target.zip",'r')
+          for file in f.namelist():
+              f.extract(file,"tmp/sh/")
+
 
 
 def main():
