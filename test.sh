@@ -82,6 +82,33 @@ class Test:
               f.extract(file,"tmp/sh/")
 
 
+#         [date modify txt](https://www.cnblogs.com/wc-chan/p/8085452.html)
+          def check(rex,txt):
+              matchObj = Regx.match(rex, txt, Regx.M|Regx.I)
+              return matchObj
+
+          def modify(file,strRex,txt):
+              """
+              world replace, delete original, bak file raname to original file name
+              :param file: original file path
+              :param target: world need to repalce
+              :param txt: new string
+              :return: None
+              """
+              with open(file, "r") as f1,open("%s.bak" % file, "w") as f2:
+                  for line in f1:
+                      rex = strRex
+                      match = check(rex,line)
+                      if match:
+                          print(rex +"  " + line)
+                          line = line.replace(match.group(),txt)
+                      f2.write(line)
+              os.remove(file)
+              os.rename("%s.bak" % file, file)
+
+         # [cur time than format](https://www.cnblogs.com/komean/p/10603518.html)
+          curTime = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
+          modify("test.sh", "^# Modify Time : .+", "# Modify Time : "+curTime)
 
 def main():
     test = Test()
@@ -91,3 +118,6 @@ def main():
 
 
 main()
+
+
+# Modify Time : 2021-12-28 12:11:04
