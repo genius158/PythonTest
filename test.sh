@@ -8,6 +8,7 @@ import urllib2
 import urllib
 
 import zipfile
+import sys
 
 # class
 class Test:
@@ -110,14 +111,22 @@ class Test:
           curTime = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
           modify("test.sh", "^# Modify Time : .+", "# Modify Time : "+curTime)
 
-def main():
+def main(argv):
+
+    length = len(argv)
+    print 'args count:', length
+    print 'args:', str(argv)
+
+    if length > 1:
+         print 'args[0]: ', argv[1]
+
     test = Test()
     test.test("sdf")
 #    Test.test("2222")
 
 
 
-main()
+main(sys.argv)
 
 
-# Modify Time : 2021-12-28 12:11:04
+# Modify Time : 2022-01-07 15:56:03
